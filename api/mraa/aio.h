@@ -101,6 +101,14 @@ mraa_result_t mraa_aio_set_bit(mraa_aio_context dev, int bits);
  */
 int mraa_aio_get_bit(mraa_aio_context dev);
 
+/* Experimental buffered AIO stuff - work in progress */
+mraa_result_t mraa_write_str_to_file(char *file_path, char *data);
+mraa_result_t mraa_write_int_to_file(char *file_path, int data);
+// FIXME: The following two lines are longer than 80 characters
+ssize_t mraa_read_from_file(char *file_path, unsigned int num_reads, unsigned int scan_size, char *buf);
+ssize_t mraa_aio_read_buffered(mraa_aio_context dev, unsigned int num_reads, char *buf);
+
+
 #ifdef __cplusplus
 }
 #endif
