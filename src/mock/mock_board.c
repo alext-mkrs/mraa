@@ -30,6 +30,26 @@
 
 #define PLATFORM_NAME "MRAA mock platform"
 
+mraa_result_t
+mraa_mock_gpio_init_internal_replace(mraa_gpio_context dev, int pin)
+{
+    // check dev for null
+    if (dev == NULL) {
+        return MRAA_ERROR_INVALID_RESOURCE;
+    }
+
+    dev->value_fp = -1;
+    dev->isr_value_fp = -1;
+    dev->isr_thread_terminating = 0;
+    dev->phy_pin = pin;
+    // We are always the owner
+    dev->owner = 1;
+#ifndef HAVE_PTHREAD_CANCEL
+    dev->isr_control_pipe[0] = dev->isr_control_pipe[1] = -1;
+#endif
+    return MRAA_SUCCESS;
+}
+
 mraa_board_t*
 mraa_mock_board()
 {
@@ -60,6 +80,8 @@ mraa_mock_board()
         free(b->pins);
         goto error;
     }
+
+    b->adv_func->gpio_init_internal_replace = &mraa_mock_gpio_init_internal_replace;
 
     int pos = 0;
 
