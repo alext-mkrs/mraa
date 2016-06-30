@@ -47,6 +47,25 @@ mraa_mock_gpio_init_internal_replace(mraa_gpio_context dev, int pin)
 #ifndef HAVE_PTHREAD_CANCEL
     dev->isr_control_pipe[0] = dev->isr_control_pipe[1] = -1;
 #endif
+
+    // We start as INPUT and LOW
+    dev->mock_dir = MRAA_GPIO_IN;
+    dev->mock_state = 0;
+
+    return MRAA_SUCCESS;
+}
+
+mraa_result_t
+mraa_mock_gpio_dir_replace(mraa_gpio_context dev, mraa_gpio_dir_t dir)
+{
+    dev->mock_dir = dir;
+    return MRAA_SUCCESS;
+}
+
+mraa_result_t
+mraa_mock_gpio_read_dir_replace(mraa_gpio_context dev, mraa_gpio_dir_t *dir)
+{
+    *dir = dev->mock_dir;
     return MRAA_SUCCESS;
 }
 
@@ -58,6 +77,7 @@ mraa_mock_board()
         return NULL;
     }
 
+    // General board definitions
     b->platform_name = PLATFORM_NAME;
     b->phy_pin_count = MRAA_MOCK_PINCOUNT;
     b->aio_count = 0;
@@ -81,8 +101,12 @@ mraa_mock_board()
         goto error;
     }
 
+    // Replace functions
     b->adv_func->gpio_init_internal_replace = &mraa_mock_gpio_init_internal_replace;
+    b->adv_func->gpio_dir_replace = &mraa_mock_gpio_dir_replace;
+    b->adv_func->gpio_read_dir_replace = &mraa_mock_gpio_read_dir_replace;
 
+    // Pin definitions
     int pos = 0;
 
     strncpy(b->pins[pos].name, "GPIO0", 8);
