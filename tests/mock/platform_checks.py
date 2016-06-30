@@ -28,19 +28,19 @@ import mraa as m
 import unittest as u
 
 class PlatformChecks(u.TestCase):
-  def test_mraa_platform_no_of_pins(self):
+  def test_platform_num_of_pins(self):
     pinCount = m.getPinCount()
     self.assertEqual(pinCount, 1, "Wrong number of pins reported by platform")
 
-  def test_mraa_platform_ADC_max_resolution(self):
-    self.p_ADC_mres = m.adcRawBits()
-    print("Platform ADC max. resolution is: " + str(self.p_ADC_mres) + " bits")
-    self.assertEqual(self.p_ADC_mres, 12, "Wrong ADC max. resolution")
+  def test_platform_ADC_max_resolution(self):
+    ADC_max_res = m.adcRawBits()
+    print("Platform ADC max. resolution is: " + str(ADC_max_res) + " bits")
+    self.assertEqual(ADC_max_mres, 12, "Wrong ADC max. resolution")
 
-  def test_mraa_platform_ADC_standard_resolution(self):
-    self.p_ADC_res = m.adcSupportedBits()
-    print("Platform ADC standard resolution is: " + str(self.p_ADC_res) + " bits")
-    self.assertEqual(self.p_ADC_res, 10, "Wrong ADC standard resolution")
+  def test_platform_ADC_std_resolution(self):
+    ADC_std_res = m.adcSupportedBits()
+    print("Platform ADC standard resolution is: " + str(ADC_std_res) + " bits")
+    self.assertEqual(ADC_std_res, 10, "Wrong ADC standard resolution")
 
 if __name__ == "__main__":
   u.main()
