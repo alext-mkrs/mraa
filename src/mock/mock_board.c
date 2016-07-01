@@ -56,10 +56,30 @@ mraa_mock_gpio_init_internal_replace(mraa_gpio_context dev, int pin)
 }
 
 mraa_result_t
+mraa_mock_gpio_close_replace(mraa_gpio_context dev)
+{
+    free(dev);
+    return MRAA_SUCCESS;
+}
+
+mraa_result_t
 mraa_mock_gpio_dir_replace(mraa_gpio_context dev, mraa_gpio_dir_t dir)
 {
-    dev->mock_dir = dir;
-    return MRAA_SUCCESS;
+    switch (dir) {
+        case MRAA_GPIO_OUT_HIGH:
+            dev->mock_dir = MRAA_GPIO_OUT;
+            return mraa_gpio_write(dev, 1);
+        case MRAA_GPIO_OUT_LOW:
+            dev->mock_dir = MRAA_GPIO_OUT;
+            return mraa_gpio_write(dev, 0);
+        case MRAA_GPIO_IN:
+        case MRAA_GPIO_OUT:
+            dev->mock_dir = dir;
+            return MRAA_SUCCESS;
+        default:
+            syslog(LOG_ERR, "gpio: dir: invalid direction '%d' to set", (int) dir);
+            return MRAA_ERROR_INVALID_PARAMETER;
+    }
 }
 
 mraa_result_t
@@ -67,6 +87,53 @@ mraa_mock_gpio_read_dir_replace(mraa_gpio_context dev, mraa_gpio_dir_t *dir)
 {
     *dir = dev->mock_dir;
     return MRAA_SUCCESS;
+}
+
+int
+mraa_mock_gpio_read_replace(mraa_gpio_context dev)
+{
+    return dev->mock_state;
+}
+
+mraa_result_t
+mraa_mock_gpio_write_replace(mraa_gpio_context dev, int value)
+{
+    if ((value < 0) || (value > 1)) {
+        syslog(LOG_ERR, "gpio: write: incorrect value '%d' passed to write(), must be 0 or 1", value);
+        return MRAA_ERROR_INVALID_PARAMETER;
+    }
+
+    if (dev->mock_dir == MRAA_GPIO_IN) {
+        syslog(LOG_ERR, "gpio: write: cannot write to pin set to INPUT");
+        return MRAA_ERROR_INVALID_RESOURCE;
+    }
+
+    dev->mock_state = value;
+    return MRAA_SUCCESS;
+}
+
+mraa_result_t
+mraa_mock_gpio_edge_mode_replace(mraa_gpio_context dev, mraa_gpio_edge_t mode)
+{
+    return MRAA_ERROR_FEATURE_NOT_IMPLEMENTED;
+}
+
+mraa_result_t
+mraa_mock_gpio_isr_replace(mraa_gpio_context dev, mraa_gpio_edge_t mode, void (*fptr)(void*), void* args)
+{
+    return MRAA_ERROR_FEATURE_NOT_IMPLEMENTED;
+}
+
+mraa_result_t
+mraa_mock_gpio_isr_exit_replace(mraa_gpio_context dev)
+{
+    return MRAA_ERROR_FEATURE_NOT_IMPLEMENTED;
+}
+
+mraa_result_t
+mraa_mock_gpio_mode_replace(mraa_gpio_context dev, mraa_gpio_mode_t mode)
+{
+    return MRAA_ERROR_FEATURE_NOT_IMPLEMENTED;
 }
 
 mraa_board_t*
@@ -103,8 +170,15 @@ mraa_mock_board()
 
     // Replace functions
     b->adv_func->gpio_init_internal_replace = &mraa_mock_gpio_init_internal_replace;
+    b->adv_func->gpio_close_replace = &mraa_mock_gpio_close_replace;
     b->adv_func->gpio_dir_replace = &mraa_mock_gpio_dir_replace;
     b->adv_func->gpio_read_dir_replace = &mraa_mock_gpio_read_dir_replace;
+    b->adv_func->gpio_read_replace = &mraa_mock_gpio_read_replace;
+    b->adv_func->gpio_write_replace = &mraa_mock_gpio_write_replace;
+    b->adv_func->gpio_edge_mode_replace = &mraa_mock_gpio_edge_mode_replace;
+    b->adv_func->gpio_isr_replace = &mraa_mock_gpio_isr_replace;
+    b->adv_func->gpio_isr_exit_replace = &mraa_mock_gpio_isr_exit_replace;
+    b->adv_func->gpio_mode_replace = &mraa_mock_gpio_mode_replace;
 
     // Pin definitions
     int pos = 0;

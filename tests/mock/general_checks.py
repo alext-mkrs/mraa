@@ -29,9 +29,10 @@ import unittest as u
 
 class GeneralChecks(u.TestCase):
   def test_mraa_version(self):
-    self.version = m.getVersion()
-    print("Version is: " + self.version)
-    self.assertIsNotNone(self.version)
+    version = m.getVersion()
+    print("Version is: " + version)
+    self.assertIsNotNone(version)
+    self.assertNotEqual(version, "", "MRAA version is an empty string")
 
 if __name__ == "__main__":
   u.main()

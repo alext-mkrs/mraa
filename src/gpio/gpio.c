@@ -382,6 +382,10 @@ mraa_gpio_isr(mraa_gpio_context dev, mraa_gpio_edge_t mode, void (*fptr)(void*),
         return MRAA_ERROR_INVALID_HANDLE;
     }
 
+    if (IS_FUNC_DEFINED(dev, gpio_isr_replace)) {
+        return dev->advance_func->gpio_isr_replace(dev, mode, fptr, args);
+    }
+
     // we only allow one isr per mraa_gpio_context
     if (dev->thread_id != 0) {
         return MRAA_ERROR_NO_RESOURCES;
@@ -415,6 +419,10 @@ mraa_gpio_isr_exit(mraa_gpio_context dev)
 
     if (dev == NULL) {
         return MRAA_ERROR_INVALID_HANDLE;
+    }
+
+    if (IS_FUNC_DEFINED(dev, gpio_isr_exit_replace)) {
+        return dev->advance_func->gpio_isr_exit_replace(dev);
     }
 
     // wasting our time, there is no isr to exit from
