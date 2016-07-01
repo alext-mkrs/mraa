@@ -34,11 +34,11 @@ class GpioChecksBasic(u.TestCase):
   def tearDown(self):
     del self.pin
 
-  def test_GPIO_state_after_init(self):
+  def test_gpio_state_after_init(self):
       # After GPIO init it should be in INPUT and LOW state
       self.assertEqual(self.pin.read(), 0, "GPIO is in a wrong state after init")
 
-  def test_GPIO_dir_after_init(self):
+  def test_gpio_dir_after_init(self):
       # After GPIO init it should be in INPUT and LOW state
       self.assertEqual(self.pin.readDir(), m.DIR_IN, "GPIO has wrong direction after init")
 

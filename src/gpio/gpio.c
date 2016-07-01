@@ -618,8 +618,9 @@ mraa_gpio_read_dir(mraa_gpio_context dev, mraa_gpio_dir_t *dir)
         return MRAA_ERROR_INVALID_HANDLE;
     }
 
-    if (IS_FUNC_DEFINED(dev, gpio_read_dir_replace))
+    if (IS_FUNC_DEFINED(dev, gpio_read_dir_replace)) {
         return dev->advance_func->gpio_read_dir_replace(dev, dir);
+    }
 
     snprintf(filepath, MAX_SIZE, SYSFS_CLASS_GPIO "/gpio%d/direction", dev->pin);
     fd = open(filepath, O_RDONLY);

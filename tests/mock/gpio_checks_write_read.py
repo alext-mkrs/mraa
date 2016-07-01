@@ -34,21 +34,21 @@ class GpioChecksWriteRead(u.TestCase):
   def tearDown(self):
     del self.pin
 
-  def test_GPIO_as_output_write_HIGH(self):
+  def test_gpio_as_output_write_HIGH(self):
     self.pin.dir(m.DIR_OUT)
     res = self.pin.write(1)
     self.assertEqual(res, m.SUCCESS, "Setting GPIO to HIGH failed")
     res = self.pin.read()
     self.assertEqual(res, 1, "GPIO is not HIGH after write(1)")
 
-  def test_GPIO_as_output_write_LOW(self):
+  def test_gpio_as_output_write_LOW(self):
     self.pin.dir(m.DIR_OUT)
     res = self.pin.write(0)
     self.assertEqual(res, m.SUCCESS, "Setting GPIO to LOW failed")
     res = self.pin.read()
     self.assertEqual(res, 0, "GPIO is not LOW after write(0)")
 
-  def test_GPIO_as_output_write_invalid(self):
+  def test_gpio_as_output_write_invalid(self):
     self.pin.dir(m.DIR_OUT)
     value = 10
     res = self.pin.write(value)
@@ -56,12 +56,12 @@ class GpioChecksWriteRead(u.TestCase):
     res = self.pin.read()
     self.assertNotEqual(res, value, "Writing " + str(value) + " to GPIO should not have set it to " + str(value))
 
-  def test_GPIO_as_input_write_HIGH(self):
+  def test_gpio_as_input_write_HIGH(self):
     self.pin.dir(m.DIR_IN)
     res = self.pin.write(1)
     self.assertNotEqual(res, m.SUCCESS, "Setting GPIO in INPUT to HIGH should have failed")
 
-  def test_GPIO_as_input_write_LOW(self):
+  def test_gpio_as_input_write_LOW(self):
     self.pin.dir(m.DIR_IN)
     res = self.pin.write(0)
     self.assertNotEqual(res, m.SUCCESS, "Setting GPIO in INPUT to LOW should have failed")

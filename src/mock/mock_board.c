@@ -33,11 +33,6 @@
 mraa_result_t
 mraa_mock_gpio_init_internal_replace(mraa_gpio_context dev, int pin)
 {
-    // check dev for null
-    if (dev == NULL) {
-        return MRAA_ERROR_INVALID_RESOURCE;
-    }
-
     dev->value_fp = -1;
     dev->isr_value_fp = -1;
     dev->isr_thread_terminating = 0;
