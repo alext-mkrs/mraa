@@ -78,7 +78,7 @@ mraa_mock_gpio_dir_replace(mraa_gpio_context dev, mraa_gpio_dir_t dir)
 }
 
 mraa_result_t
-mraa_mock_gpio_read_dir_replace(mraa_gpio_context dev, mraa_gpio_dir_t *dir)
+mraa_mock_gpio_read_dir_replace(mraa_gpio_context dev, mraa_gpio_dir_t* dir)
 {
     *dir = dev->mock_dir;
     return MRAA_SUCCESS;
