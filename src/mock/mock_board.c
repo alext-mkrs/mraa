@@ -80,9 +80,9 @@ mraa_mock_board()
     // General board definitions
     b->platform_name = PLATFORM_NAME;
     b->phy_pin_count = MRAA_MOCK_PINCOUNT;
-    b->aio_count = 0;
-    b->adc_raw = 0;
-    b->adc_supported = 0;
+    b->aio_count = 1;
+    b->adc_raw = 12;
+    b->adc_supported = 10;
     b->i2c_bus_count = 0;
     b->spi_bus_count = 0;
 
