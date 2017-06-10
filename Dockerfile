@@ -25,6 +25,16 @@ RUN wget http://iotdk.intel.com/misc/tr/swig-3.0.10.tar.gz && \
 # Node.js Build Dependencies
 RUN wget -q -O - https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
 
+ENV SONAR_DIR /usr/sonar
+WORKDIR $SONAR_DIR
+
+RUN wget https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.0.3.778-linux.zip && \
+    wget https://sonarqube.com/static/cpp/build-wrapper-linux-x86.zip && \
+    unzip sonar-scanner-cli-3.0.3.778-linux.zip && \
+    unzip build-wrapper-linux-x86.zip
+
+ENV PATH $SONAR_DIR/sonar-scanner-cli-3.0.3.778-linux/bin:$SONAR_DIR/build-wrapper-linux-x86:$PATH
+
 # Set Workdir
 WORKDIR /usr/src/app
 
@@ -97,4 +107,4 @@ RUN . $NVM_DIR/nvm.sh && cmake \
     -DBUILDTESTS=$BUILDTESTS \
     ..
 
-CMD make
+CMD make || build-wrapper-linux-x86-64 --version || sonar-scanner --version
