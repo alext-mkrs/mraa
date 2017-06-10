@@ -79,3 +79,12 @@ services:
     build:
       args:
         - NODE_VERSION=v5.12.0
+
+  sonar-scan:
+    extends: main
+    build:
+      args:
+        - BUILDSWIG=ON
+        - BUILDSWIGPYTHON=ON
+        - BUILDSWIGNODE=ON
+    command: bash -c "sonar-scanner --version; build-wrapper-linux-x86-64 --help"

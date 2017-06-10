@@ -107,6 +107,4 @@ RUN . $NVM_DIR/nvm.sh && cmake \
     -DBUILDTESTS=$BUILDTESTS \
     ..
 
-RUN  echo $PATH && build-wrapper-linux-x86-64 --version && sonar-scanner --version
-
 CMD make
