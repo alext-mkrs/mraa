@@ -87,4 +87,7 @@ services:
         - BUILDSWIG=ON
         - BUILDSWIGPYTHON=ON
         - BUILDSWIGNODE=ON
+        - BUILDSWIGJAVA=ON
+        - ONEWIRE=ON
+        - JSONPLAT=ON
     command: bash -c "echo $PATH; sonar-scanner --version; build-wrapper-linux-x86-64 --help"
