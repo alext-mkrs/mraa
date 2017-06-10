@@ -7,7 +7,7 @@ RUN apt-get -y update && \
   # Install apt-utils
   apt-get -y --no-install-recommends install apt-utils && \
   # Main Build Dependencies
-  apt-get -y --no-install-recommends install git build-essential cmake clang-3.8 g++-4.8 wget libpcre3 libpcre3-dev \
+  apt-get -y --no-install-recommends install git build-essential cmake clang-3.8 g++-4.8 wget unzip libpcre3 libpcre3-dev \
   # Docs Build Dependencies
   python-sphinx doxygen graphviz \
   # Python Build Dependencies
