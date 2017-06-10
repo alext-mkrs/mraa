@@ -33,7 +33,7 @@ RUN wget https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-sc
     unzip sonar-scanner-cli-3.0.3.778-linux.zip && \
     unzip build-wrapper-linux-x86.zip
 
-ENV PATH $SONAR_DIR/sonar-scanner-cli-3.0.3.778-linux/bin:$SONAR_DIR/build-wrapper-linux-x86:$PATH
+ENV PATH $SONAR_DIR/sonar-scanner-3.0.3.778-linux/bin:$SONAR_DIR/build-wrapper-linux-x86:$PATH
 
 # Set Workdir
 WORKDIR /usr/src/app

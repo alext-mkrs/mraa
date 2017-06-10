@@ -87,4 +87,4 @@ services:
         - BUILDSWIG=ON
         - BUILDSWIGPYTHON=ON
         - BUILDSWIGNODE=ON
-    command: bash -c "sonar-scanner --version; build-wrapper-linux-x86-64 --help"
+    command: bash -c "echo $PATH; sonar-scanner --version; build-wrapper-linux-x86-64 --help"
