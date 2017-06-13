@@ -49,14 +49,14 @@ services:
       args:
         - BUILDSWIG=ON
         - BUILDSWIGPYTHON=ON
-    command: bash -c "make _python2-mraa && ctest --output-on-failure"
+    command: bash -c "make _python2-mraa && ctest --output-on-failure --verbose"
 
   python3:
     extends: python2
     build:
       args:
         - USEPYTHON3TESTS=ON
-    command: bash -c "make _python3-mraa && ctest --output-on-failure"
+    command: bash -c "make _python3-mraa && ctest --output-on-failure --verbose"
 
   java:
     extends: main
