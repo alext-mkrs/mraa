@@ -42,7 +42,7 @@ sonar_cmd_base="build-wrapper-linux-x86-64 --out-dir ${bw_output_path} make clea
 echo "TRAVIS_BRANCH: ${TRAVIS_BRANCH}"
 echo "TRAVIS_PULL_REQUEST: ${TRAVIS_PULL_REQUEST}"
 echo "TRAVIS_PULL_REQUEST_SLUG: ${TRAVIS_PULL_REQUEST_SLUG}"
-echo "TRAVIS_REPO_SLUG: ${TRAVIS_REPO_SLUG}""
+echo "TRAVIS_REPO_SLUG: ${TRAVIS_REPO_SLUG}"
 
 if [ "${TRAVIS_BRANCH}" == "master" -a "${TRAVIS_PULL_REQUEST}" == "false" ]; then
     # Master branch push - do a full-blown scan
