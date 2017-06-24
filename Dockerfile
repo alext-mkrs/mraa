@@ -26,7 +26,7 @@ RUN wget http://iotdk.intel.com/misc/tr/swig-3.0.10.tar.gz && \
 RUN wget -q -O - https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
 
 ENV SONAR_DIR /usr/sonar
-ENV SONAR_VER "3.0.0.778"
+ENV SONAR_VER "3.0.3.778"
 WORKDIR $SONAR_DIR
 
 RUN wget https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${SONAR_VER}-linux.zip && \
