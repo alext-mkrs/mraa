@@ -107,4 +107,4 @@ RUN . $NVM_DIR/nvm.sh && cmake \
     -DBUILDTESTS=$BUILDTESTS \
     ..
 
-CMD make
+CMD pwd && ls -alF ./ && build-wrapper-linux-x86-64 --out-dir bw-output make

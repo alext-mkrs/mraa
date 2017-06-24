@@ -35,6 +35,9 @@ services:
       - http_proxy
       - https_proxy
       - no_proxy
+      - SONAR_TOKEN
+      - SONAR_ORG
+      - SONAT_PROJ_KEY
 
   doc:
     extends: main
@@ -90,4 +93,14 @@ services:
         - BUILDSWIGJAVA=ON
         - ONEWIRE=ON
         - JSONPLAT=ON
-    command: bash -c "echo $PATH; sonar-scanner --version; build-wrapper-linux-x86-64 --help"
+#    command: bash -c "sonar-scanner \
+#                        -Dsonar.projectKey=$SONAR_PROJ_KEY \
+#                        -Dsonar.projectBaseDir=/home/at/mraa/mraa-git \
+#                        -Dsonar.sources=/home/at/mraa/mraa-git \
+#                        -Dsonar.inclusions='api/**/*,CMakeLists.txt,examples/**/*,imraa/**/*,include/**/*,src/**/*,tests/**/*' \
+#                        -Dsonar.cfamily.build-wrapper-output=/home/at/mraa/mraa-git/build/bw-output \
+#                        -Dsonar.host.url=https://sonarqube.com \
+#                        -Dsonar.organization=$SONAR_ORG \
+#                        -Dsonar.login=$SONAR_TOKEN \
+#                     "
+    command: echo $SONAR_PROJ_KEY || echo $SONAR_ORG || pwd || ls -alF ./ || ls -alF ../
