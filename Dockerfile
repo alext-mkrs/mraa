@@ -25,6 +25,7 @@ RUN wget http://iotdk.intel.com/misc/tr/swig-3.0.10.tar.gz && \
 # Node.js Build Dependencies
 RUN wget -q -O - https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
 
+# Static code analysis scanner
 ENV SONAR_DIR /usr/sonar
 ENV SONAR_VER "3.0.3.778"
 WORKDIR $SONAR_DIR
