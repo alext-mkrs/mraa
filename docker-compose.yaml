@@ -31,10 +31,18 @@ services:
         - CXX=${CXX:-clang++-3.8}
         - NODE_VERSION=${NODE_VERSION:-v4.4.7}
         - BUILDARCH=${BUILDARCH}
+        - MRAA_SRC_DIR=${MRAA_SRC_DIR:-/usr/src/app}
     environment:
       - http_proxy
       - https_proxy
       - no_proxy
+      - SONAR_TOKEN
+      - SONAR_ORG
+      - SONAR_PROJ_KEY
+      - MRAA_SRC_DIR=/usr/src/app
+      - TRAVIS_PULL_REQUEST
+      - TRAVIS_REPO_SLUG
+      - GITHUB_TOKEN
 
   doc:
     extends: main
@@ -82,3 +90,30 @@ services:
     build:
       args:
         - NODE_VERSION=v5.12.0
+
+  sonar-scan:
+    extends: main
+    build:
+      args:
+        - BUILDSWIG=ON
+        - BUILDSWIGPYTHON=ON
+        - BUILDSWIGNODE=ON
+        - BUILDSWIGJAVA=ON
+        - ONEWIRE=ON
+        - JSONPLAT=ON
+    command: bash -c "build-wrapper-linux-x86-64 --out-dir $${MRAA_SRC_DIR}/build/bw-output make all &&
+                      sonar-scanner --debug
+                        -Dsonar.projectKey=$${SONAR_PROJ_KEY}
+                        -Dsonar.projectBaseDir=$${MRAA_SRC_DIR}
+                        -Dsonar.sources=$${MRAA_SRC_DIR}
+                        -Dsonar.inclusions='api/**/*,CMakeLists.txt,examples/**/*,imraa/**/*,include/**/*,src/**/*,tests/**/*'
+                        -Dsonar.coverage.exclusions='**/*'
+                        -Dsonar.cfamily.build-wrapper-output=$${MRAA_SRC_DIR}/build/bw-output
+                        -Dsonar.host.url=https://sonarqube.com
+                        -Dsonar.organization=$${SONAR_ORG}
+                        -Dsonar.login=$${SONAR_TOKEN}
+                        -Dsonar.analysis.mode=preview
+                        -Dsonar.github.pullRequest=$${TRAVIS_PULL_REQUEST}
+                        -Dsonar.github.repository=$${TRAVIS_REPO_SLUG}
+                        -Dsonar.github.oauth=$${GITHUB_TOKEN}
+                     "
