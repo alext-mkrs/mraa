@@ -36,12 +36,14 @@ services:
       - http_proxy
       - https_proxy
       - no_proxy
+      - MRAA_SRC_DIR=/usr/src/app
       - SONAR_TOKEN
       - SONAR_ORG
       - SONAR_PROJ_KEY
-      - MRAA_SRC_DIR=/usr/src/app
+      - TRAVIS_BRANCH
       - TRAVIS_PULL_REQUEST
       - TRAVIS_REPO_SLUG
+      - TRAVIS_PULL_REQUEST_SLUG
       - GITHUB_TOKEN
 
   doc:
