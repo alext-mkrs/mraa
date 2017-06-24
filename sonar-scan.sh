@@ -5,7 +5,7 @@
 #
 # Author: Alex Tereschenko <alext.mkrs@gmail.com>
 
-sonar_cmd_base="build-wrapper-linux-x86-64 --out-dir $${MRAA_SRC_DIR}/build/bw-output make all && \
+sonar_cmd_base="build-wrapper-linux-x86-64 --out-dir ${MRAA_SRC_DIR}/build/bw-output make clear all && \
     sonar-scanner \
         --debug \
         -Dsonar.projectKey=${SONAR_PROJ_KEY} \
