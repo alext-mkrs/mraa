@@ -98,7 +98,7 @@ services:
         - BUILDSWIGJAVA=ON
         - ONEWIRE=ON
         - JSONPLAT=ON
-    command: bash -c "build-wrapper-linux-x86-64 --out-dir $${MRAA_SRC_DIR}/build/bw-output make all && ./sonar-scan.sh"
+    command: bash -c "build-wrapper-linux-x86-64 --out-dir $${MRAA_SRC_DIR}/build/bw-output make all && ../sonar-scan.sh"
 #    command: bash -c "build-wrapper-linux-x86-64 --out-dir $${MRAA_SRC_DIR}/build/bw-output make all &&
 #                      sonar-scanner --debug
 #                        -Dsonar.projectKey=$${SONAR_PROJ_KEY}
