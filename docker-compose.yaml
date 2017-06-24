@@ -38,7 +38,7 @@ services:
       - SONAR_TOKEN
       - SONAR_ORG
       - SONAT_PROJ_KEY
-#      - MRAA_SRC_DIR
+      - MRAA_SRC_DIR=/usr/src/app2
 
   doc:
     extends: main

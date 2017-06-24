@@ -108,4 +108,4 @@ RUN . $NVM_DIR/nvm.sh && cmake \
     -DBUILDTESTS=$BUILDTESTS \
     ..
 
-CMD build-wrapper-linux-x86-64 --out-dir bw-output make
+CMD echo $MRAA_SRC_DIR; build-wrapper-linux-x86-64 --out-dir bw-output make
