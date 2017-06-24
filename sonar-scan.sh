@@ -32,7 +32,7 @@ elif [ "${TRAVIS_PULL_REQUEST}" != "false" -a "${TRAVIS_PULL_REQUEST_SLUG}" == "
                -Dsonar.github.oauth=${GITHUB_TOKEN} \
                "
 else
-    echo "External pull request or non-master branch push - skipping scanning"
+    echo "External pull request or non-master branch push - skipping the scan"
     exit 0
 fi
 
