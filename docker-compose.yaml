@@ -31,7 +31,7 @@ services:
         - CXX=${CXX:-clang++-3.8}
         - NODE_VERSION=${NODE_VERSION:-v4.4.7}
         - BUILDARCH=${BUILDARCH}
-        - MRAA_SRC_DIR=/usr/src/app2
+        - MRAA_SRC_DIR=${MRAA_SRC_DIR:-/usr/src/app}
     environment:
       - http_proxy
       - https_proxy
@@ -39,7 +39,7 @@ services:
       - SONAR_TOKEN
       - SONAR_ORG
       - SONAT_PROJ_KEY
-      - MRAA_SRC_DIR=/usr/src/app2
+      - MRAA_SRC_DIR=/usr/src/app
 
   doc:
     extends: main
@@ -95,13 +95,14 @@ services:
         - BUILDSWIGJAVA=ON
         - ONEWIRE=ON
         - JSONPLAT=ON
-    command: bash -c "sonar-scanner \
-                        -Dsonar.projectKey=${SONAR_PROJ_KEY} \
-                        -Dsonar.projectBaseDir=${MRAA_SRC_DIR} \
-                        -Dsonar.sources=${MRAA_SRC_DIR} \
+    command: bash -c "build-wrapper-linux-x86-64 --out-dir ${MRAA_SRC_DIR}/build/bw-output make all &&
+                      sonar-scanner
+                        -Dsonar.projectKey=${SONAR_PROJ_KEY}
+                        -Dsonar.projectBaseDir=${MRAA_SRC_DIR}
+                        -Dsonar.sources=${MRAA_SRC_DIR}
                         -Dsonar.inclusions='api/**/*,CMakeLists.txt,examples/**/*,imraa/**/*,include/**/*,src/**/*,tests/**/*' \
-                        -Dsonar.cfamily.build-wrapper-output=${MRAA_SRC_DIR}/build/bw-output \
-                        -Dsonar.host.url=https://sonarqube.com \
-                        -Dsonar.organization=${SONAR_ORG} \
-                        -Dsonar.login=${SONAR_TOKEN} \
+                        -Dsonar.cfamily.build-wrapper-output=${MRAA_SRC_DIR}/build/bw-output
+                        -Dsonar.host.url=https://sonarqube.com
+                        -Dsonar.organization=${SONAR_ORG}
+                        -Dsonar.login=${SONAR_TOKEN}
                      "
