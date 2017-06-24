@@ -36,7 +36,8 @@ RUN wget https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-sc
 ENV PATH $SONAR_DIR/sonar-scanner-3.0.3.778-linux/bin:$SONAR_DIR/build-wrapper-linux-x86:$PATH
 
 # Set Workdir
-WORKDIR /usr/src/app
+ENV MRAA_SRC_DIR /usr/src/app
+WORKDIR $MRAA_SRC_DIR
 
 # Configure Build Arguments
 ARG BUILDARCH
@@ -81,7 +82,7 @@ RUN tr -d "\r" < src/doxy2swig.py > src/_doxy2swig.py && \
     chmod u+x src/doxy2swig.py
 
 # Change Workdir to build directory
-WORKDIR /usr/src/app/build
+WORKDIR $MRAA_SRC_DIR/build
 
 # Run cmake
 RUN . $NVM_DIR/nvm.sh && cmake \
@@ -107,4 +108,4 @@ RUN . $NVM_DIR/nvm.sh && cmake \
     -DBUILDTESTS=$BUILDTESTS \
     ..
 
-CMD pwd && ls -alF ./ && build-wrapper-linux-x86-64 --out-dir bw-output make
+CMD build-wrapper-linux-x86-64 --out-dir bw-output make

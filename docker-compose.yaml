@@ -38,6 +38,7 @@ services:
       - SONAR_TOKEN
       - SONAR_ORG
       - SONAT_PROJ_KEY
+      - MRAA_SRC_DIR
 
   doc:
     extends: main
@@ -93,14 +94,13 @@ services:
         - BUILDSWIGJAVA=ON
         - ONEWIRE=ON
         - JSONPLAT=ON
-#    command: bash -c "sonar-scanner \
-#                        -Dsonar.projectKey=$SONAR_PROJ_KEY \
-#                        -Dsonar.projectBaseDir=/home/at/mraa/mraa-git \
-#                        -Dsonar.sources=/home/at/mraa/mraa-git \
-#                        -Dsonar.inclusions='api/**/*,CMakeLists.txt,examples/**/*,imraa/**/*,include/**/*,src/**/*,tests/**/*' \
-#                        -Dsonar.cfamily.build-wrapper-output=/home/at/mraa/mraa-git/build/bw-output \
-#                        -Dsonar.host.url=https://sonarqube.com \
-#                        -Dsonar.organization=$SONAR_ORG \
-#                        -Dsonar.login=$SONAR_TOKEN \
-#                     "
-    command: echo $SONAR_PROJ_KEY || echo $SONAR_ORG || pwd || ls -alF ./ || ls -alF ../
+    command: bash -c "sonar-scanner \
+                        -Dsonar.projectKey=${SONAR_PROJ_KEY} \
+                        -Dsonar.projectBaseDir=${MRAA_SRC_DIR} \
+                        -Dsonar.sources=${MRAA_SRC_DIR} \
+                        -Dsonar.inclusions='api/**/*,CMakeLists.txt,examples/**/*,imraa/**/*,include/**/*,src/**/*,tests/**/*' \
+                        -Dsonar.cfamily.build-wrapper-output=${MRAA_SRC_DIR}/build/bw-output \
+                        -Dsonar.host.url=https://sonarqube.com \
+                        -Dsonar.organization=${SONAR_ORG} \
+                        -Dsonar.login=${SONAR_TOKEN} \
+                     "
