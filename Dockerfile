@@ -26,14 +26,16 @@ RUN wget http://iotdk.intel.com/misc/tr/swig-3.0.10.tar.gz && \
 RUN wget -q -O - https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
 
 ENV SONAR_DIR /usr/sonar
+ENV SONAR_VER "3.0.0.778"
 WORKDIR $SONAR_DIR
 
-RUN wget https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.0.3.778-linux.zip && \
+RUN wget https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${SONAR_VER}-linux.zip && \
     wget https://sonarqube.com/static/cpp/build-wrapper-linux-x86.zip && \
-    unzip sonar-scanner-cli-3.0.3.778-linux.zip && \
-    unzip build-wrapper-linux-x86.zip
+    unzip sonar-scanner-cli-${SONAR_VER}-linux.zip && \
+    unzip build-wrapper-linux-x86.zip && \
+    rm sonar-scanner-cli-${SONAR_VER}-linux.zip build-wrapper-linux-x86.zip
 
-ENV PATH $SONAR_DIR/sonar-scanner-3.0.3.778-linux/bin:$SONAR_DIR/build-wrapper-linux-x86:$PATH
+ENV PATH $SONAR_DIR/sonar-scanner-${SONAR_VER}-linux/bin:$SONAR_DIR/build-wrapper-linux-x86:$PATH
 
 # Set Workdir
 ARG MRAA_SRC_DIR
