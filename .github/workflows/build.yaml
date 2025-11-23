@@ -38,12 +38,11 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake -G Ninja -DBUILDSWIGNODE=on ../
+          cmake -G Ninja -DBUILDSWIGNODE=on -DBUILDARCH= ${{ matrix.arch }} ../
           ninja
 
       - name: Run tests
         if: matrix.run_tests
         run: |
           cd build
-          cmake -G Ninja -DBUILDSWIGNODE=on -DBUILDARCH=MOCK ../
-          ninja && ninja test
+          ninja test
