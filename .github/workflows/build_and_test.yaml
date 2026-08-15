@@ -23,16 +23,21 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        arch: [x86_64, MOCK]
+        runs_on: [ubuntu-22.04, ubuntu-24.04, ubuntu-26.04]
+        run_tests: [true]
         include:
-          - arch: x86_64
-            runs_on: ubuntu-latest
-            run_tests: true
+          # - arch: x86_64
+          #   runs_on: ubuntu-latest
+          #   run_tests: true
+          # - arch: arm
+          #   runs_on: ubuntu-24.04-arm
+          #   run_tests: true
+          # - arch: MOCK
+          #   runs_on: ubuntu-latest
+          #   run_tests: true
           - arch: arm
-            runs_on: ubuntu-24.04-arm
-            run_tests: true
-          - arch: MOCK
-            runs_on: ubuntu-latest
-            run_tests: true
+            runs_on: [ubuntu-22.04-arm, ubuntu-24.04-arm, ubuntu-26.04-arm]
     runs-on: ${{ matrix.runs_on }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
