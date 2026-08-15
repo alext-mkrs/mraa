@@ -23,10 +23,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        arch: [x86_64, arm, MOCK]
-        runs_on: [ubuntu-22.04, ubuntu-24.04, ubuntu-26.04]
-        run_tests: [true]
-        include:
+        arch: [ x86_64, arm, MOCK ]
+        runs_on: [ ubuntu-22.04, ubuntu-24.04, ubuntu-26.04 ]
+        run_tests: [ true ]
+        # include:
           # - arch: x86_64
           #   runs_on: ubuntu-latest
           #   run_tests: true
