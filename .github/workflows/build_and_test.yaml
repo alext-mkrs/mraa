@@ -37,8 +37,8 @@ jobs:
           #   runs_on: ubuntu-latest
           #   run_tests: true
           - arch: arm
-            runs_on: [ubuntu-22.04-arm, ubuntu-24.04-arm, ubuntu-26.04-arm]
-    runs-on: ${{ matrix.runs_on }}
+            runs_on:
+    runs-on: ${{ (matrix.arch == 'arm' && format('{0}-arm', matrix.runs_on)) || matrix.runs_on }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
