@@ -27,3 +27,6 @@ npm-debug.log
 
 # Visual Studio Code
 .vscode/
+
+# Python virtual environment
+.venv/

@@ -10,9 +10,8 @@ If you think you have found a vulnerability in this repository, please report it
 
 Instead, report it using one of the following ways:
 
-* Contact the [Eclipse Foundation Security Team](mailto:security@eclipse-foundation.org) via email
-* Create a [confidential issue](https://gitlab.eclipse.org/security/vulnerability-reports/-/issues/new?issuable_template=new_vulnerability) in the Eclipse Foundation Vulnerability Reporting Tracker
-* Report a [vulnerability](https://github.com/eclipse/mraa/security/advisories/new) directly via private vulnerability reporting on GitHub
+* Create a [confidential issue](https://gitlab.eclipse.org/security/vulnerability-reports/-/work_items/new?issue[confidential]=true) in the Eclipse Foundation Vulnerability Reporting Tracker
+* Report a [vulnerability](https://github.com/eclipse-mraa/mraa/security/advisories/new) directly via private vulnerability reporting on GitHub
 
 You can find more information about reporting and disclosure at the [Eclipse Foundation Security page](https://www.eclipse.org/security/).
 
@@ -32,4 +31,4 @@ This information will help us triage your report more quickly.
 
 ## Supported Versions
 
-We support the latest released version that can be found in the [Releases section of the repo](https://github.com/eclipse/mraa/releases).
+We support the latest released version that can be found in the [Releases section of the repo](https://github.com/eclipse-mraa/mraa/releases).

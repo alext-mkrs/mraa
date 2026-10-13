@@ -26,4 +26,4 @@ SPDX-License-Identifier: MIT
 
 The project maintains the following source code repositories:
 
-* https://github.com/eclipse/mraa
+* https://github.com/eclipse-mraa/mraa
